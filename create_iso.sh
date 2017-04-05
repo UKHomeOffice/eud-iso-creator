@@ -43,8 +43,7 @@ configure_image() {
 }
 
 prepare_cd_directory() {
-  export kversion=`cd ${WORK}/rootfs/boot && ls -1 vmlinuz-* | tail -1 | \
-	                                                          sed 's@vmlinuz-@@'`
+  export kversion=`cd ${WORK}/rootfs/boot && ls -1 vmlinuz-* | tail -1 | sed 's@vmlinuz-@@'`
   cp -vp ${WORK}/rootfs/boot/vmlinuz-${kversion} ${CD}/${FS_DIR}/vmlinuz
   cp -vp ${WORK}/rootfs/boot/initrd.img-${kversion} ${CD}/${FS_DIR}/initrd.img
   cp -vp ${WORK}/rootfs/boot/memtest86+.bin ${CD}/boot
@@ -61,7 +60,7 @@ prepare_cd_directory() {
   find ${CD} -type f -print0 | xargs -0 md5sum | sed "s@${CD}@.@" | \
 	                           grep -v md5sum.txt | sudo tee -a ${CD}/md5sum.txt
   rsync -a config/grub.cfg ${CD}/boot/grub/grub.cfg
-  grub-mkrescue -o ~/eud-environment$(date +%Y-%m-%d-%H-%M-%S).iso ${CD}
+  grub-mkrescue -o ~/eud-environment-$(date +%Y-%m-%d-%H-%M-%S).iso ${CD}
 }
 
 separator() {
