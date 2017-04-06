@@ -8,6 +8,10 @@ update_and_install_base_packages() {
   apt-get install -y casper lupin-casper ubiquity ubiquity-frontend-gtk \
 	  linux-generic linux-headers-generic ubuntu-minimal ubuntu-standard \
 	  ubuntu-desktop
+  apt-get install -f
+  apt-get install -y casper lupin-casper ubiquity ubiquity-frontend-gtk \
+	  linux-generic linux-headers-generic ubuntu-minimal ubuntu-standard \
+	  ubuntu-desktop
   apt-get clean
 }
 

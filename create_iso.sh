@@ -33,6 +33,18 @@ pull_down_image() {
   debootstrap xenial ${WORK}/rootfs
 }
 
+mount_filesystem() {
+  mount --bind /dev ${WORK}/rootfs/dev
+  mount -t proc proc ${WORK}/rootfs/proc
+  mount -t sysfs sysfs ${WORK}/rootfs/sys
+}
+
+unmount_filesystem() {
+  umount ${WORK}/rootfs/proc
+  umount ${WORK}/rootfs/sys
+  umount ${WORK}/rootfs/dev
+}
+
 prepare_image_for_use() {
   rsync -a config/sources/* ${WORK}/rootfs/etc/apt/sources.list.d/
   rsync -a config/chroot.sh ${WORK}/rootfs/root/
@@ -85,6 +97,10 @@ echo "Downloading Ubuntu"
 echo "Configuring image"
   separator
     configure_image
+    mount_filesystem
+    configure_image
+    unmount_filesystem
+    unmount_filesystem
   separator
 
 echo "Preparing the filesystem for the creation of the ISO"
