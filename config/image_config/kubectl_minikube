@@ -1,0 +1,41 @@
+#!/bin/bash
+
+kubectl_minikube_role() {
+  # Variables for installing Kubectl / Minikube
+  KUBECTL_VERSION="v1.5.3"
+  MINIKUBE_VERSION="v0.17.1"
+
+  KUBECTL_URL="https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl"
+  MINIKUBE_URL="http://storage.googleapis.com/minikube/releases/${MINIKUBE_VERSION}/minikube-linux-amd64"
+
+  KUBECTL_SHA256="9cfc6cfb959d934cc8080c2dea1e5a6490fd29e592718c5b2b2cfda5f92e787e"
+  MINIKUBE_SHA256="54f9e24b5622f540a6d5edd7450ce546cf6f57f9feff21fd5d92d0d2f552ac31"
+
+  # Download requirements
+  curl -s $KUBECTL_URL -o /tmp/kubectl
+  curl -s $MINIKUBE_URL -o /tmp/minikube
+
+  # Get SHA sums
+
+  KUBECTL_SHA256_DL=$(sha256sum /tmp/kubectl | awk '{print $1}')
+  MINIKUBE_SHA256_DL=$(sha256sum /tmp/minikube | awk '{print $1}')
+
+  # If all is good add the binaries
+  if [[ "$KUBECTL_SHA256"=="$KUBECTL_SHA256_DL" ]]; then
+    rsync --chmod 0755 --remove-source-files /tmp/kubectl /usr/local/bin/kubectl
+  else
+    separator
+    echo "SHASUM does not match, please manually check then install Kubectl"
+    separator
+    exit 1
+  fi
+
+  if [[ "$MINIKUBE_SHA256"=="$MINIKUBE_SHA256_DL" ]]; then
+    rsync --chmod 0755 --remove-source-files /tmp/minikube /usr/local/bin/minikube
+  else
+    separator
+    echo "SHASUM does not match, please manually check Minikube installation"
+    separator
+    exit 1
+  fi
+}

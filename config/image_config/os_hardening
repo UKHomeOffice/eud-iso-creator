@@ -1,0 +1,74 @@
+#!/bin/bash
+
+os_hardening_role() {
+  # Prevent core dumps
+  mkdir -p /etc/security/limits.d/
+  rsync -a files/limits.conf /etc/security/limits.d/10.hardcore.conf
+
+  # Login definitions
+  rsync -a files/login.defs /etc/login.defs
+  rsync -a files/51-hide-users usr/share/lightdm/lightdm.conf.d/51-hide-users
+
+  # Minimize access
+  chmod go-w /usr/local/sbin
+  chmod go-w /usr/local/bin
+  chmod go-w /usr/sbin
+  chmod go-w /usr/bin
+  chmod go-w /sbin
+  chmod go-w /bin
+
+  chown root:shadow /etc/shadow
+  chmod 0640 /etc/shadow
+
+  chown root:root /bin/su
+  chmod 0750 /bin/su
+
+  # Configuring pam
+  pam-auth-update --package
+  apt-get purge -y libpam-ccreds libpam-cracklib
+  apt-get install -y libpam-pwquality libpam-modules 
+  apt-get purge -y libpam-passwdqc
+
+  # Configuring profiles
+  rsync -a files/profile.conf /etc/profile.d/pinerolo_profile.sh
+
+  # Securing tty
+  rsync -a files/securetty /etc/securetty
+  chmod 0400 /etc/securetty
+
+  # Removing sticky bit from umount
+  chmod a-s /bin/umount
+
+  # Removing sticky bit from other files
+  FILES=$(find / -xdev \( -perm -4000 -o -perm -2000 \) -type f ! -path '/proc/*' -print 2>/dev/null | sed '/\/usr\/bin\/rlogin/d')
+  for i in $(echo "$FILES") ; do
+    chmod a-s $i
+  done
+
+  # Configuring sysctl
+  rsync --chmod 0440 files/sysctl.conf /etc/sysctl.conf
+  rsync --chmod 0440 files/ufw         /etc/default/ufw
+  rsync --chmod 0444 files/host.conf   /etc/host.confg
+
+  # Remove login shell from some system users
+  USERS=$(awk -F'':'' '{ if ( $3 <= 998 ) print $1}' /etc/passwd | grep -v "^root$\|^sync$")
+  for i in $(echo "$USERS") ; do
+    chsh -s /usr/sbin/nologin $i
+  done
+
+  # delete rhosts-files from system | DTAG SEC Req 3.21-4
+  USERS=$(awk -F: '{print $1}' /etc/passwd)
+  for i in $(echo "$USERS") ; do
+    rm -f ~${i}/.rhosts
+  done
+
+  # delete hosts.equiv from system | DTAG SEC Req 3.21-4
+  rm -f /etc/hosts.equiv
+
+  # removing possibly dangerous packages
+  apt-get purge -y xinetd inetd ypserv telnet-server rsh-server rsync
+
+  # Configuring modprobe
+  mkdir -p /etc/modprobe.d
+  rsync --chmod 0440 files/blacklist_modules /etc/modprobe.d/blacklist_modules.conf
+}

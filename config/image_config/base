@@ -1,0 +1,24 @@
+#!/bin/bash
+# Functions to create a bootable ubuntu-desktop out of an image pulled using debootstrap
+
+update_and_install_base_packages() {
+  apt-get update
+  apt-get install -y casper lupin-casper ubiquity ubiquity-frontend-gtk \
+	  linux-generic linux-headers-generic ubuntu-minimal ubuntu-standard \
+	  ubuntu-desktop
+  apt-get install -f
+  apt-get install -y casper lupin-casper ubiquity ubiquity-frontend-gtk \
+	  linux-generic linux-headers-generic ubuntu-minimal ubuntu-standard \
+	  ubuntu-desktop
+  apt-get clean
+}
+
+set_kernel_version() {
+  export kversion=`cd /boot && ls -1 vmlinuz-* | tail -1 | sed 's@vmlinuz-@@'`
+  depmod -a $kversion
+  update-initramfs -u -k $kversion
+}
+
+separator() {
+  echo "################################################################################"
+}

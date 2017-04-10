@@ -1,0 +1,18 @@
+#!/bin/bash
+
+vagrant_role() {
+  VAGRANT_DEB_URL="https://releases.hashicorp.com/vagrant/1.9.0/vagrant_1.9.0_x86_64.deb"
+  VAGRANT_SHA256="530c3b1ddfcb37d8cb687c7f9695b4e058cf4419464a7ddd450afc8473e3eb2b"
+  curl -Ls $VAGRANT_DEB_URL -o /tmp/vagrant_1.9.0_x86_64.deb
+  VAGRANT_SHA256_DL=$(sha256sum /tmp/vagrant_1.9.0_x86_64.deb | awk '{print $1}')
+  if [[ "$VAGRANT_SHA256"=="$VAGRANT_SHA256_DL" ]]; then
+    mv /tmp/vagrant_1.9.0_x86_64.deb /var/cache/apt/archives/vagrant_1.9.0_x86_64.deb
+    apt-get update
+    apt-get install -y vagrant
+  else
+    separator
+    echo "SHA256 sum for vagrant is incorrect, please review vagrant installation"
+    separator
+    exit 1
+  fi
+}

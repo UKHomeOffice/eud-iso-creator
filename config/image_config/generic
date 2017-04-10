@@ -1,0 +1,32 @@
+#!/bin/bash
+# A script which replicates the ansible role: 
+. generic_vars
+
+generic_role() {
+  apt-get update -y
+
+  apt-get install -y $OS_PACKAGES
+  apt-get purge -y $OS_BANNED_PACKAGES
+
+  sed -i 's/us/uk/g' work/rootfs/etc/default/keyboard
+
+  rsync -a files/70-u2f.rules /etc/udev/rules.d/70-u2f.rules
+  chmod 0444 /etc/udev/rules.d/70-u2f.rules
+  rsync -a files/50unattended-upgrades /etc/apt/apt.conf.d/50unattended-upgrades
+  chmod 0444 /etc/apt/apt.conf.d/50unattended-upgrades
+  rsync -a files/grub /etc/bash_completion.d/grub
+  chmod 0644 /etc/bash_completion.d/grub
+  rsync -a files/rkhunter.sh /etc/cron.daily/rkhunter.sh
+  chmod 0755 /etc/cron.daily/rkhunter.sh
+  rsync -a files/rkhunter.conf /etc/rkhunter.conf
+  chmod 0644
+  # Any files attached by a USB will be owned by root
+  rsync -a files/chown_usb /usr/local/bin/chown_usb
+  chmod 0755 /usr/local/bin/chown_usb
+
+  systemctl enable pcscd
+
+  # Lazy way of making people use gpg
+  mv /usr/bin/gpg /usr/bin/.gpg_old
+  ln -s /usr/bin/gpg2 /usr/bin/gpg
+}

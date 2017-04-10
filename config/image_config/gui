@@ -1,0 +1,10 @@
+#!/bin/bash
+# Role to configure users GUI
+
+gui_role() {
+  apt-mark hold snapd
+  apt-get update -y
+
+  apt-get install -y $OS_PACKAGES
+  apt-get purge -y $OS_BANNED_PACKAGES
+}

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+ip_tables_role() {
+  rsync --chmod 0755 files/iptables.v4.generated /etc/iptables.v4.generated
+  /etc/iptables.v4.generated
+  iptables-save -c > /etc/iptables.v4.saved
+  rsync --chmod 0755 files/iptables-v4-save /etc/network/if-post-down.d/iptables-v4
+  rsync --chmod 0755 files/iptables-v4-restore /etc/network/if-pre-up.d/iptables-v4
+}

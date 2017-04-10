@@ -1,0 +1,21 @@
+#!/bin/bash
+
+docker_role() {
+  apt-get update
+  apt-get install -y linux-image-extra-virtual \
+                     linux-image-extra-virtual-lts-$(lsb_release -cs) \
+                     apt-transport-https \
+                     ca-certificates \
+                     python3 \
+                     python3-pip \
+                     python3-httplib2
+  curl -fsSL https://yum.dockerproject.org/gpg | sudo apt-key add -
+  add-apt-repository "deb https://apt.dockerproject.org/repo \
+                                   $(lsb_release -is)-$(lsb_release -cs) main"
+  apt-get update
+  apt-get install -y docker-engine
+
+  pip install setuptools six docker-py passlib
+  rsync --chmod 644 files/docker-default /etc/default/docker
+  systemctl enable docker
+}

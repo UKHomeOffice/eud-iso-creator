@@ -1,0 +1,7 @@
+#!/bin/bash
+
+ssh_hardening_role() {
+  # Add config
+  rsync --chmod 0600 files/sshd_config /etc/ssh/sshd_config
+  rsync --chmod 0644 files/ssh_config  /etc/ssh/ssh_config
+}

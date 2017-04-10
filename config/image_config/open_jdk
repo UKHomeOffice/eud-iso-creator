@@ -1,0 +1,7 @@
+#!/bin/bash
+
+open_jdk_role() {
+  apt-get update
+  apt-get install -y openjdk-8-source openjdk-8-jdk openjdk-8-jdk-headless openjdk-8-jre openjdk-8-jre-headless
+  rsync --chmod 0640 files/jdk.sh /etc/profile.d/jdk.sh
+}

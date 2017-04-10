@@ -1,0 +1,20 @@
+#!/bin/bash
+
+virtualbox_role() {
+  # Variables for installing virtualbox
+  VIRTUAL_BOX_APT_KEY_1="https://www.virtualbox.org/download/oracle_vbox_2016.asc"
+  VIRTUAL_BOX_APT_KEY_2="https://www.virtualbox.org/download/oracle_vbox.asc"
+  VIRTUAL_BOX_REPO_URL="http://download.virtualbox.org/virtualbox/debian"
+  VIRTUAL_BOX_VERSION="5.1"
+
+  apt-get update
+  apt-get install -y dkms libsdl-ttf2.0-0 libsdl1.2debian
+  
+  curl -fsSL "$VIRTUAL_BOX_APT_KEY_1" | sudo apt-key add -
+  curl -fsSL "$VIRTUAL_BOX_APT_KEY_2" | sudo apt-key add -
+
+  add-apt-repository "$VIRTUAL_BOX_REPO_URL $(lsb_release -cs) contrib"
+
+  apt-get update
+  apt-get install -y virtualbox-${VIRTUAL_BOX_VERSION}
+}

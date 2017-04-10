@@ -1,0 +1,12 @@
+#!/bin/bash
+
+audit_hardening_role() {
+  apt-get install -y auditd
+  mkdir -p /etc/audit
+  rsync --chmod 0440 files/auditd.conf /etc/audit/auditd.conf
+  mkdir -p /etc/audit/rules.d
+  rsync --chmod 0440 files/audit.rules /etc/audit/rules.d/audit.rules
+  rm -f /etc/audit/audit.rules
+  ln -s /etc/audit/rules.d/audit.rules /etc/audit/audit.rules
+  systemctl enable auditd
+}
