@@ -1,0 +1,14 @@
+#!/bin/bash
+
+chrome_role() {
+  GOOGLE_APT_KEY="https://dl.google.com/linux/linux_signing_key.pub"
+  CHROME_APT_URL="deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+
+  apt-get install -y python-pycurl python-apt
+  
+  curl -fsSL "$GOOGLE_APT_KEY" | sudo apt-key add -
+  add-apt-repository "$CHROME_APT_URL"
+
+  apt-get update
+  apt-get install -y google-chrome-stable
+}

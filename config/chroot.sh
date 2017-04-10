@@ -22,6 +22,11 @@ cd $DIR
 . image_config/virtualbox_role
 . image_config/vagrant
 . image_config/packer
+. image_config/slack
+. image_config/sysdig
+. image_config/sublime
+. image_config/chrome
+. image_config/display_link_driver
 
 echo "Configuring image to make a bootable installation disk"
   separator
@@ -79,5 +84,29 @@ echo "Installing Vagrant"
 echo "Installing Packer"
   separator
   packer_role
+
+echo "Installing Slack"
+  separator
+  slack_role
+
+echo "Installing Sysdig"
+  separator
+  sysdig_role
+
+echo "Installing Sublime"
+  separator
+  sublime_role
+
+echo "Installing Chrome"
+  separator
+  chrome_role
+
+echo "Installing Display Link Driver"
+  separator
+  display_link_driver_role
+
+echo "Installing / Configuring ClamAV"
+  separator
+  clamav_role
 
 exit 0

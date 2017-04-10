@@ -1,0 +1,10 @@
+#!/bin/bash
+
+sublime_role() {
+  SUBLIME_VER="3126"
+  SUBLIME_URL="https://download.sublimetext.com/sublime-text_build-${SUBMLIME_VER}_amd64.deb"
+  
+  curl -Ls $SUBLIME_URL -o /var/cache/apt/archives/sublimetext.deb
+  apt-get update
+  apt-get install -y sublime
+}

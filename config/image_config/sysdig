@@ -1,0 +1,13 @@
+#!/bin/bash
+
+sysdig_role() {
+  SYSDIG_APT_KEY="https://s3.amazonaws.com/download.draios.com/DRAIOS-GPG-KEY.public"
+  SYSDIG_APT_URL="deb http://download.draios.com/stable/deb stable-$(ARCH)/"
+  
+  curl -fsSL "$SYSDIG_APT_KEY" | sudo apt-key add -
+
+  add-apt-repository "$SYSDIG_APT_URL"
+
+  apt-get update
+  apt-get install -y sysdig
+}

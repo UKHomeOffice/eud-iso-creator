@@ -1,0 +1,12 @@
+#!/bin/bash
+
+slack_role() {
+  SLACK_REPO_KEY="https://packagecloud.io/slacktechnologies/slack/gpgkey"
+  SLACK_REPO_URL="deb https://packagecloud.io/slacktechnologies/slack/debian/ jessie main"
+
+  curl -fsSL "$SLACK_REPO_KEY" | sudo apt-key add -
+  add-apt-repository "$SLACK_REPO_URL"
+
+  apt-get update
+  apt-get install -y slack-desktop
+}

@@ -46,6 +46,7 @@ unmount_filesystem() {
 }
 
 prepare_image_for_use() {
+<<<<<<< HEAD
   mkdir -p ${WORK}/rootfs/install/
   rsync -a config/sources/*     ${WORK}/rootfs/etc/apt/sources.list.d/
   mkdir -p                      ${WORK}/rootfs/root/install/image_config/
@@ -55,13 +56,27 @@ prepare_image_for_use() {
 
 configure_image() {
   chroot ${WORK}/rootfs /root/install/chroot.sh
+=======
+  rsync -a config/sources/* ${WORK}/rootfs/etc/apt/sources.list.d/
+  rsync -a config/chroot.sh ${WORK}/rootfs/root/
+}
+
+configure_image() {
+  chroot ${WORK}/rootfs /root/chroot.sh
+}
+
+prepare_cd_directory() {
+>>>>>>> a50002e0c516e1cbea30ad68eeaa033d06a0beec
   export kversion=`cd ${WORK}/rootfs/boot && ls -1 vmlinuz-* | tail -1 | sed 's@vmlinuz-@@'`
   cp -vp ${WORK}/rootfs/boot/vmlinuz-${kversion} ${CD}/${FS_DIR}/vmlinuz
   cp -vp ${WORK}/rootfs/boot/initrd.img-${kversion} ${CD}/${FS_DIR}/initrd.img
   cp -vp ${WORK}/rootfs/boot/memtest86+.bin ${CD}/boot
+<<<<<<< HEAD
 }
 
 prepare_cd_directory() {
+=======
+>>>>>>> a50002e0c516e1cbea30ad68eeaa033d06a0beec
   chroot ${WORK}/rootfs dpkg-query -W --showformat='${Package} ${Version}\n' | \
 	                                 sudo tee ${CD}/${FS_DIR}/filesystem.manifest
   cp -v ${CD}/${FS_DIR}/filesystem.manifest{,-desktop}
@@ -74,7 +89,11 @@ prepare_cd_directory() {
 	                                  | sudo tee ${CD}/${FS_DIR}/filesystem.size
   find ${CD} -type f -print0 | xargs -0 md5sum | sed "s@${CD}@.@" | \
 	                           grep -v md5sum.txt | sudo tee -a ${CD}/md5sum.txt
+<<<<<<< HEAD
   rsync -a config/image_config/files/grub.cfg ${CD}/boot/grub/grub.cfg
+=======
+  rsync -a config/grub.cfg ${CD}/boot/grub/grub.cfg
+>>>>>>> a50002e0c516e1cbea30ad68eeaa033d06a0beec
   grub-mkrescue -o ~/eud-environment-$(date +%Y-%m-%d-%H-%M-%S).iso ${CD}
 }
 
@@ -99,9 +118,17 @@ echo "Downloading Ubuntu"
 
 echo "Configuring image"
   separator
+<<<<<<< HEAD
     mount_filesystem
     configure_image
     unmount_filesystem
+=======
+    configure_image
+    mount_filesystem
+    configure_image
+    unmount_filesystem
+    unmount_filesystem
+>>>>>>> a50002e0c516e1cbea30ad68eeaa033d06a0beec
   separator
 
 echo "Preparing the filesystem for the creation of the ISO"
