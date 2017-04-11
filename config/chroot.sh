@@ -8,7 +8,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 FILE_LOCATION="image_config/files"
 export LC_ALL="C.UTF-8"
-#export DEBIAN_FRONTEND=noninteractive
+export DEBIAN_FRONTEND=noninteractive
 
 # Import functions
 . image_config/base
@@ -133,11 +133,13 @@ echo "Installing / Configuring ClamAV"
     clamav_role
   separator
 
-echo "Cleaning up fs"
+echo "Cleaning up fs and adding installation user"
   separator
-    rm -rf /root/*
+    rm -rf /root/install/
     rm -rf /install/
-    rm -rf /opt/*
+    # Installation user added - password is install, given sudo rights for installation
+    useradd -m -p paMR5PIKDbgsE -s /bin/bash install_ubuntu
+    sed -i '$ a \\n#Addition for installation user\ninstall_ubuntu  ALL=(ALL:ALL) NOPASSWD: ALL' /etc/sudoers
   separator
 
 exit 0
