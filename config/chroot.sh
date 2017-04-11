@@ -19,7 +19,7 @@ cd $DIR
 . image_config/open_jdk
 . image_config/docker
 . image_config/kubectl_minikube
-. image_config/virtualbox_role
+. image_config/virtualbox
 . image_config/vagrant
 . image_config/packer
 . image_config/slack
