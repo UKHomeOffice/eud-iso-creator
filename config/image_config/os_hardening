@@ -3,11 +3,11 @@
 os_hardening_role() {
   # Prevent core dumps
   mkdir -p /etc/security/limits.d/
-  rsync -a $FILE_LOCATION/limits.conf /etc/security/limits.d/10.hardcore.conf
+  rsync --chmod 0644 $FILE_LOCATION/limits.conf /etc/security/limits.d/10.hardcore.conf
 
   # Login definitions
-  rsync -a $FILE_LOCATION/login.defs /etc/login.defs
-  rsync -a $FILE_LOCATION/51-hide-users usr/share/lightdm/lightdm.conf.d/51-hide-users
+  rsync --chmod 0444 $FILE_LOCATION/login.defs /etc/login.defs
+  rsync --chmod 0444 $FILE_LOCATION/51-hide-users /usr/share/lightdm/lightdm.conf.d/51-hide-users
 
   # Minimize access
   chmod go-w /usr/local/sbin
@@ -30,11 +30,10 @@ os_hardening_role() {
   apt-get purge -y libpam-passwdqc
 
   # Configuring profiles
-  rsync -a $FILE_LOCATION/profile.conf /etc/profile.d/pinerolo_profile.sh
+  rsync --chmod 750 $FILE_LOCATION/profile.conf /etc/profile.d/pinerolo_profile.sh
 
   # Securing tty
-  rsync -a $FILE_LOCATION/securetty /etc/securetty
-  chmod 0400 /etc/securetty
+  rsync --chmod 0400 $FILE_LOCATION/securetty /etc/securetty
 
   # Removing sticky bit from umount
   chmod a-s /bin/umount
