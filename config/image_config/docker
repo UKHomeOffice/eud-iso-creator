@@ -9,11 +9,13 @@ docker_role() {
                      python3 \
                      python3-pip \
                      python3-httplib2
-  curl -fsSL https://yum.dockerproject.org/gpg | sudo apt-key add -
-  add-apt-repository "deb https://apt.dockerproject.org/repo \
-                                   $(lsb_release -is)-$(lsb_release -cs) main"
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  add-apt-repository \
+	     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+	      $(lsb_release -cs) \
+	      stable"
   apt-get update
-  apt-get install -y docker-engine
+  apt-get install -y docker-ce
 
   pip install setuptools six docker-py passlib
   rsync --chmod 644 $FILE_LOCATION/docker-default /etc/default/docker

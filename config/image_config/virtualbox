@@ -16,5 +16,5 @@ virtualbox_role() {
   add-apt-repository "$VIRTUAL_BOX_REPO_URL $(lsb_release -cs) contrib"
 
   apt-get update
-  apt-get install -y virtualbox-${VIRTUAL_BOX_VERSION}
+  apt-get install -y virtualbox
 }

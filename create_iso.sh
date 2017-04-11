@@ -75,7 +75,7 @@ prepare_cd_directory() {
   find ${CD} -type f -print0 | xargs -0 md5sum | sed "s@${CD}@.@" | \
 	                           grep -v md5sum.txt | sudo tee -a ${CD}/md5sum.txt
   rsync -a config/image_config/files/grub.cfg ${CD}/boot/grub/grub.cfg
-  grub-mkrescue -o ~/eud-environment-$(date +%Y-%m-%d-%H-%M-%S).iso ${CD}
+  grub-mkrescue -o ~/eud-environment-$(date +%Y-%m-%d-%H-%M-%S).iso ${CD} -- -iso-level 4
 }
 
 separator() {
@@ -85,6 +85,7 @@ separator() {
 echo "Checking for requirements"
   separator
   check_for_requirements
+  separator
 
 echo "Preparing work directories"
   separator

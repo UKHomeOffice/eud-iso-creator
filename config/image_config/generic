@@ -61,6 +61,7 @@ OS_PACKAGES="""
   perl
   policycoreutils
   pv
+  python-pip
   rcs
   rkhunter
   rng-tools
