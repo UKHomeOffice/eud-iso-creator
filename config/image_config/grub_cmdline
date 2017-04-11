@@ -2,6 +2,6 @@
 
 grub_cmdline_role() {
   apt-get install -y perl
-  rsync --chmod 0644 files/grub-default  /etc/default/grub
-  rysnc --chmod 0750 files/grub-config/* /etc/grub.d/
+  rsync --chmod 0644 $FILE_LOCATION/grub-default  /etc/default/grub
+  rysnc --chmod 0750 $FILE_LOCATION/grub-config/* /etc/grub.d/
 }

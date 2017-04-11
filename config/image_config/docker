@@ -16,6 +16,6 @@ docker_role() {
   apt-get install -y docker-engine
 
   pip install setuptools six docker-py passlib
-  rsync --chmod 644 files/docker-default /etc/default/docker
+  rsync --chmod 644 $FILE_LOCATION/docker-default /etc/default/docker
   systemctl enable docker
 }

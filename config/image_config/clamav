@@ -4,10 +4,10 @@ clamav_role() {
   apt-get update
   apt-get install -y clamav clamav-daemon clamav-freshclam clamtk
 
-  rsync --chmod 0440 files/usr.sbin.clamd /etc/apparmor.d/local/usr.sbin.clamd
-  rsync --chmod 0440 files/clamd.conf /etc/clamav/clamd.conf
-  rsync --chmod 0440 files/freshclam.conf /etc/clamav/freshclam.conf
-  rsync --chmod 0755 files/freshclam.sh /usr/local/bin/freshclam_status
+  rsync --chmod 0440 $FILE_LOCATION/usr.sbin.clamd /etc/apparmor.d/local/usr.sbin.clamd
+  rsync --chmod 0440 $FILE_LOCATION/clamd.conf /etc/clamav/clamd.conf
+  rsync --chmod 0440 $FILE_LOCATION/freshclam.conf /etc/clamav/freshclam.conf
+  rsync --chmod 0755 $FILE_LOCATION/freshclam.sh /usr/local/bin/freshclam_status
 
   systemctl enable clamav-daemon
   systemctl enable clamav-freshclam

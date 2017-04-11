@@ -6,6 +6,7 @@
 # Find script directory:
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
+FILE_LOCATION="image_config/files"
 
 # Import functions
 . image_config/base

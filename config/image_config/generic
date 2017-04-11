@@ -9,19 +9,13 @@ generic_role() {
 
   sed -i 's/us/uk/g' work/rootfs/etc/default/keyboard
 
-  rsync -a files/70-u2f.rules /etc/udev/rules.d/70-u2f.rules
-  chmod 0444 /etc/udev/rules.d/70-u2f.rules
-  rsync -a files/50unattended-upgrades /etc/apt/apt.conf.d/50unattended-upgrades
-  chmod 0444 /etc/apt/apt.conf.d/50unattended-upgrades
-  rsync -a files/grub /etc/bash_completion.d/grub
-  chmod 0644 /etc/bash_completion.d/grub
-  rsync -a files/rkhunter.sh /etc/cron.daily/rkhunter.sh
-  chmod 0755 /etc/cron.daily/rkhunter.sh
-  rsync -a files/rkhunter.conf /etc/rkhunter.conf
-  chmod 0644
+  rsync --chmod 0444 $FILE_LOCATION/70-u2f.rules /etc/udev/rules.d/70-u2f.rules
+  rsync --chmod 0444 $FILE_LOCATION/50unattended-upgrades /etc/apt/apt.conf.d/50unattended-upgrades
+  rsync --chmod 0644 $FILE_LOCATION/grub /etc/bash_completion.d/grub
+  rsync --chmod 0755 $FILE_LOCATION/rkhunter.sh /etc/cron.daily/rkhunter.sh
+  rsync --chmod 0644 $FILE_LOCATION/rkhunter.conf /etc/rkhunter.conf
   # Any files attached by a USB will be owned by root
-  rsync -a files/chown_usb /usr/local/bin/chown_usb
-  chmod 0755 /usr/local/bin/chown_usb
+  rsync --chmod 0755 $FILE_LOCATION/chown_usb /usr/local/bin/chown_usb
 
   systemctl enable pcscd
 
