@@ -13,7 +13,7 @@ check_for_requirements() {
     echo "please install them then come back and try again."
     exit 1
   fi
-  if [[ "$EUID" -ne 0 ]]; then
+  if [[ ${USER}!="root" ]]; then
     echo "This script requires you run it as root"
     echo "Please check your permissions then come back and try again"
     exit 1
