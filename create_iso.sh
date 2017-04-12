@@ -84,7 +84,7 @@ separator() {
 
 echo "Checking for requirements"
   separator
-  check_for_requirements
+    check_for_requirements
   separator
 
 echo "Preparing work directories"
@@ -107,7 +107,7 @@ echo "Configuring image"
 
 echo "Preparing the filesystem for the creation of the ISO"
   separator
-#    prepare_cd_directory
+    prepare_cd_directory
   separator
 
 exit 0

@@ -135,7 +135,6 @@ echo "Installing / Configuring ClamAV"
 
 echo "Cleaning up fs and adding installation user"
   separator
-    rm -rf /root/install/
     rm -rf /install/
     # Installation user added - password is install, given sudo rights for installation
     useradd -m -p paMR5PIKDbgsE -s /bin/bash install_ubuntu
