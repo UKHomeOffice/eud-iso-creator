@@ -13,7 +13,7 @@ check_for_requirements() {
     echo "please install them then come back and try again."
     exit 1
   fi
-  if [[ ${USER}!="root" ]]; then
+  if [[ "$USER" != "root" ]]; then
     echo "This script requires you run it as root"
     echo "Please check your permissions then come back and try again"
     exit 1
@@ -107,7 +107,7 @@ echo "Configuring image"
 
 echo "Preparing the filesystem for the creation of the ISO"
   separator
-    prepare_cd_directory
+#    prepare_cd_directory
   separator
 
 exit 0
