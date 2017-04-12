@@ -6,5 +6,5 @@ sublime_role() {
   
   curl -Ls $SUBLIME_URL -o /var/cache/apt/archives/sublimetext.deb
   apt-get update
-  apt-get install -y /var/cache/apt/archives/sublimetext.deb
+  apt-get install -y sublime-text
 }
