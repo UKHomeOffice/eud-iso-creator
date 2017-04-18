@@ -53,8 +53,16 @@ prepare_image_for_use() {
   rsync -a config/post_install.sh ${WORK}/rootfs/root/install/
   rsync -a config/README.md       ${WORK}/rootfs/root/install/
   rsync -a config/image_config/   ${WORK}/rootfs/root/install/image_config/
-  git remote get-url --all origin     >  ${WORK}/rootfs/root/INSTALLATION_INFO
-  git log --format=oneline | head -n1 >> ${WORK}/rootfs/root/INSTALLATION_INFO
+}
+
+tag_image() {
+  LOG_FILE=${WORK}/rootfs/root/INSTALLATION_INFO
+  echo "$0 $@ ran on $DATE"                              >$LOG_FILE
+  echo "Branch: $(git branch)"                          >>$LOG_FILE
+  echo "Version: $(git describe --tags)"                >>$LOG_FILE
+  echo "Commit: $(git log --format=oneline | head -n1)" >>$LOG_FILE
+  echo "Git URL: $(git remote get-url --all origin)"    >>$LOG_FILE
+  separator                                             >>$LOG_FILE
 }
 
 configure_image() {
@@ -100,6 +108,7 @@ echo "Downloading Ubuntu"
   separator
     pull_down_image
     prepare_image_for_use
+    tag_image
   separator
 
 echo "Configuring image"
