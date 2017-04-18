@@ -47,10 +47,14 @@ unmount_filesystem() {
 
 prepare_image_for_use() {
   mkdir -p ${WORK}/rootfs/install/
-  rsync -a config/sources/*     ${WORK}/rootfs/etc/apt/sources.list.d/
-  mkdir -p                      ${WORK}/rootfs/root/install/image_config/
-  rsync -a config/chroot.sh     ${WORK}/rootfs/root/install/
-  rsync -a config/image_config/ ${WORK}/rootfs/root/install/image_config/
+  rsync -a config/sources/*       ${WORK}/rootfs/etc/apt/sources.list.d/
+  mkdir -p                        ${WORK}/rootfs/root/install/image_config/
+  rsync -a config/chroot.sh       ${WORK}/rootfs/root/install/
+  rsync -a config/post_install.sh ${WORK}/rootfs/root/install/
+  rsync -a config/README.md       ${WORK}/rootfs/root/install/
+  rsync -a config/image_config/   ${WORK}/rootfs/root/install/image_config/
+  git remote get-url --all origin     >  ${WORK}/rootfs/root/INSTALLATION_INFO
+  git log --format=oneline | head -n1 >> ${WORK}/rootfs/root/INSTALLATION_INFO
 }
 
 configure_image() {
