@@ -1,0 +1,7 @@
+#!/bin/bash
+
+configure_login_role() {
+  rsync $FILE_LOCATION/50-no-guest.conf      /etc/lightdm/lightdm.conf.d/50-no-guest.conf
+  rsync $FILE_LOCATION/20privacy-hook.conf   /etc/lightdm/lightdm.conf.d/20privacy-hook.conf
+  rsync $FILE_LOCATION/unity-privacy-hook.sh /usr/local/bin/unity-privacy-hook.sh
+}
