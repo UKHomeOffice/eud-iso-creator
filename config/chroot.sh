@@ -20,11 +20,8 @@ export DEBIAN_FRONTEND=noninteractive
 . image_config/grub_cmdline
 . image_config/audit_hardening
 . image_config/open_jdk
-. image_config/docker
-. image_config/kubectl_minikube
 . image_config/virtualbox
 . image_config/vagrant
-. image_config/packer
 . image_config/slack
 . image_config/sysdig
 . image_config/clamav
@@ -78,16 +75,6 @@ echo "Installing OpenJDK"
     open_jdk_role
   separator
 
-echo "Installing Docker"
-  separator
-    docker_role
-  separator
-
-echo "Installing Kubectl & Minikube"
-  separator
-    kubectl_minikube_role
-  separator
-
 echo "Installing Virtual Box"
   separator
     virtualbox_role
@@ -96,11 +83,6 @@ echo "Installing Virtual Box"
 echo "Installing Vagrant"
   separator
     vagrant_role
-  separator
-
-echo "Installing Packer"
-  separator
-    packer_role
   separator
 
 echo "Installing Slack"
@@ -136,9 +118,6 @@ echo "Installing / Configuring ClamAV"
 echo "Cleaning up fs and adding installation user"
   separator
     rm -rf /install/
-    # Installation user added - password is install, given sudo rights for installation
-    useradd -m -p paMR5PIKDbgsE -s /bin/bash install_ubuntu
-    sed -i '$ a \\n#Addition for installation user\ninstall_ubuntu  ALL=(ALL:ALL) NOPASSWD: ALL' /etc/sudoers
   separator
 
 exit 0
