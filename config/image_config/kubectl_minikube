@@ -22,7 +22,7 @@ kubectl_minikube_role() {
 
   # If all is good add the binaries
   if [[ "$KUBECTL_SHA256"=="$KUBECTL_SHA256_DL" ]]; then
-    rsync --chmod 0755 --remove-source-files /tmp/kubectl /usr/local/bin/kubectl
+    rsync --chmod=ug+rwx,o+rx --remove-source-files /tmp/kubectl /usr/local/bin/kubectl
   else
     separator
     echo "SHASUM does not match, please manually check then install Kubectl"
@@ -31,7 +31,7 @@ kubectl_minikube_role() {
   fi
 
   if [[ "$MINIKUBE_SHA256"=="$MINIKUBE_SHA256_DL" ]]; then
-    rsync --chmod 0755 --remove-source-files /tmp/minikube /usr/local/bin/minikube
+    rsync --chmod=ug+rwx,o+rx --remove-source-files /tmp/minikube /usr/local/bin/minikube
   else
     separator
     echo "SHASUM does not match, please manually check Minikube installation"

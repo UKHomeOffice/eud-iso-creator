@@ -1,5 +1,6 @@
 #!/bin/bash
 
+. image_config/base
 . image_config/docker
 . image_config/kubectl_minikube
 . image_config/packer
