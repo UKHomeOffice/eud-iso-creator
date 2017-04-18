@@ -94,15 +94,15 @@ echo "Preparing work directories"
 
 echo "Downloading Ubuntu"
   separator
-#    pull_down_image
-#    prepare_image_for_use
+    pull_down_image
+    prepare_image_for_use
   separator
 
 echo "Configuring image"
   separator
-#    mount_filesystem
-#    configure_image
-#    unmount_filesystem
+    mount_filesystem
+    configure_image
+    unmount_filesystem
   separator
 
 echo "Preparing the filesystem for the creation of the ISO"
