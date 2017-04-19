@@ -4,6 +4,7 @@
 . image_config/docker
 . image_config/kubectl_minikube
 . image_config/packer
+. image_config/sublime
 . image_config/configure_login
 
 FILE_LOCATION="image_config/files"
@@ -11,6 +12,11 @@ FILE_LOCATION="image_config/files"
 echo "Installing docker"
   separator
     docker_role
+  separator
+
+echo "Installing Sublime"
+  separator
+    sublime_role
   separator
 
 echo "Installing kubectl / minikube"

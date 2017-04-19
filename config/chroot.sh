@@ -25,7 +25,6 @@ export DEBIAN_FRONTEND=noninteractive
 . image_config/slack
 . image_config/sysdig
 . image_config/clamav
-. image_config/sublime
 . image_config/chrome
 . image_config/display_link_driver
 
@@ -93,11 +92,6 @@ echo "Installing Slack"
 echo "Installing Sysdig"
   separator
     sysdig_role
-  separator
-
-echo "Installing Sublime"
-  separator
-    sublime_role
   separator
 
 echo "Installing Chrome"
