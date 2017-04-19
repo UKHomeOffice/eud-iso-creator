@@ -4,7 +4,7 @@ packer_role() {
   PACKER_VERSION="0.12.0"
   PACKER_URL="https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip"
   PACKER_SHA256="ce6362d527ba697e40b8c90a98d2034b7749e2357fa238b08536aed44f037073"
-  curl -Ls $PACKER_URL -o /tmp/packer.zip
+  curl -Lks $PACKER_URL -o /tmp/packer.zip
   PACKER_SHA256_DL=$(sha256sum /tmp/packer.zip | awk '{print $1}')
   if [[ "$PACKER_SHA256"=="$PACKER_SHA256_DL" ]]; then
     unzip /tmp/packer.zip -d /usr/local/bin/

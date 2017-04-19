@@ -12,8 +12,8 @@ kubectl_minikube_role() {
   MINIKUBE_SHA256="54f9e24b5622f540a6d5edd7450ce546cf6f57f9feff21fd5d92d0d2f552ac31"
 
   # Download requirements
-  curl -s $KUBECTL_URL -o /tmp/kubectl
-  curl -s $MINIKUBE_URL -o /tmp/minikube
+  curl -ks $KUBECTL_URL -o /tmp/kubectl
+  curl -ks $MINIKUBE_URL -o /tmp/minikube
 
   # Get SHA sums
 
