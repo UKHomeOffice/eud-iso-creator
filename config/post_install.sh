@@ -35,3 +35,4 @@ echo "Configuring user logins"
   separator
 
 echo "Please don't forget to change the UID of the admin user to 999 in order to hide them"
+echo "Open passwd in a text editor and change the UID from 1000 to 999"
