@@ -6,6 +6,7 @@
 . image_config/packer
 . image_config/sublime
 . image_config/configure_login
+. image_config/display_link_driver
 
 FILE_LOCATION="image_config/files"
 
@@ -27,6 +28,11 @@ echo "Installing kubectl / minikube"
 echo "Installing packer"
   separator
     packer_role
+  separator
+
+echo "Installing Display Link Driver"
+  separator
+    display_link_driver_role
   separator
 
 echo "Configuring user logins"
