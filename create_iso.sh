@@ -57,11 +57,13 @@ prepare_image_for_use() {
 
 tag_image() {
   LOG_FILE=${WORK}/rootfs/root/INSTALLATION_INFO
+  CREATOR=$(awk -F: '($3 >= 1000) {printf "%s:%s\n",$1,$3}' /etc/passwd | grep -v nobody)
   echo "$0 $@ ran on $DATE"                              >$LOG_FILE
   echo "Branch: $(git branch)"                          >>$LOG_FILE
   echo "Version: $(git describe --tags)"                >>$LOG_FILE
   echo "Commit: $(git log --format=oneline | head -n1)" >>$LOG_FILE
   echo "Git URL: $(git remote get-url --all origin)"    >>$LOG_FILE
+  echo "Created by: $CREATOR using $(hostname)"         >>$LOG_FILE
   separator                                             >>$LOG_FILE
 }
 
@@ -93,6 +95,8 @@ prepare_cd_directory() {
 separator() {
   echo "################################################################################"
 }
+
+DATE=$(date)
 
 echo "Checking for requirements"
   separator
