@@ -26,7 +26,6 @@ export DEBIAN_FRONTEND=noninteractive
 . image_config/sysdig
 . image_config/clamav
 . image_config/chrome
-. image_config/display_link_driver
 
 echo "Configuring image to make a bootable installation disk"
   separator
@@ -97,11 +96,6 @@ echo "Installing Sysdig"
 echo "Installing Chrome"
   separator
     chrome_role
-  separator
-
-echo "Installing Display Link Driver"
-  separator
-    display_link_driver_role
   separator
 
 echo "Installing / Configuring ClamAV"
