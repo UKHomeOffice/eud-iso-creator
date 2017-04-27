@@ -38,4 +38,5 @@ kubectl_minikube_role() {
     separator
     exit 1
   fi
+  chmod 755 /usr/local/bin/{minikube,kubectl}
 }
