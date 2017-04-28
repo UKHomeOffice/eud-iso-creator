@@ -81,6 +81,7 @@ prepare_cd_directory() {
   cp -v ${CD}/${FS_DIR}/filesystem.manifest{,-desktop}
   REMOVE='ubiquity casper user-setup os-prober libdebian-installer4'
   for i in $REMOVE ; do
+    sudo sed -i "/${i}/d" ${CD}/${FS_DIR}/filesystem.manifest
     sudo sed -i "/${i}/d" ${CD}/${FS_DIR}/filesystem.manifest-desktop
   done
   mksquashfs ${WORK}/rootfs ${CD}/${FS_DIR}/filesystem.${FORMAT} -noappend
