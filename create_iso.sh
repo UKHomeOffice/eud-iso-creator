@@ -47,12 +47,13 @@ unmount_filesystem() {
 
 prepare_image_for_use() {
   mkdir -p ${WORK}/rootfs/install/
-  rsync -a config/sources/*       ${WORK}/rootfs/etc/apt/sources.list.d/
-  mkdir -p                        ${WORK}/rootfs/root/install/image_config/
-  rsync -a config/chroot.sh       ${WORK}/rootfs/root/install/
-  rsync -a config/post_install.sh ${WORK}/rootfs/root/install/
-  rsync -a config/README.md       ${WORK}/rootfs/root/install/
-  rsync -a config/image_config/   ${WORK}/rootfs/root/install/image_config/
+  rsync -a config/sources/*                  ${WORK}/rootfs/etc/apt/sources.list.d/
+  mkdir -p                                   ${WORK}/rootfs/root/install/image_config/
+  rsync -a config/chroot.sh                  ${WORK}/rootfs/root/install/
+  rsync -a config/post_install.sh            ${WORK}/rootfs/root/install/
+  rsync -a config/README.md                  ${WORK}/rootfs/root/install/
+  rsync -a config/image_config/              ${WORK}/rootfs/root/install/image_config/
+  rsync -a config/image_config/files/80multi ${WORK}/rootfs/lib/partman/recipes/30atomic
 }
 
 tag_image() {

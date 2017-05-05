@@ -1,0 +1,94 @@
+partman-auto/text/multi_scheme ::
+
+1 1 1 free
+	$iflabel{ gpt }
+	$reusemethod{ }
+	method{ biosgrub } .
+
+256 1024 512 ext2
+	$defaultignore{ }
+	method{ format }
+	format{ }
+	use_filesystem{ }
+	filesystem{ ext2 }
+	mountpoint{ /boot } .
+
+2000 3500 25000 $default_filesystem
+	$lvmok{ }
+	method{ format }
+	format{ }
+	use_filesystem{ }
+	$default_filesystem{ }
+	mountpoint{ / } .
+
+1000 1500 10000 $default_filesystem
+	$lvmok{ }
+	method{ format }
+	format{ }
+	use_filesystem{ }
+	$default_filesystem{ }
+	mountpoint{ /var }
+        options/rw{ rw } .
+
+5120 50 20480 $default_filesystem
+        $lvmok{ }
+        mountpoint{ /var/tmp }
+        method{ format }
+        format{ }
+        use_filesystem{ }
+        $default_filesystem{ }
+        options/rw{ rw } .
+
+5120 50 10240 $default_filesystem
+        $lvmok{ }
+        mountpoint{ /var/log }
+        method{ format }
+        format{ }
+        use_filesystem{ }
+        $default_filesystem{ }
+        options/rw{ rw } .
+
+2048 60 5120 $default_filesystem
+        $lvmok{ }
+        mountpoint{ /var/log/audit }
+        method{ format }
+        format{ }
+        use_filesystem{ }
+        $default_filesystem{ }
+        options/rw{ rw } .
+
+10240 50 102400 $default_filesystem
+        $lvmok{ }
+        mountpoint{ /var/lib/docker }
+        method{ format }
+        format{ }
+        use_filesystem{ }
+        $default_filesystem{ }
+        options/rw{ rw } .
+
+96 512 200% linux-swap
+	$lvmok{ }
+	$reusemethod{ }
+	method{ swap }
+	format{ } .
+
+256 400 2000 $default_filesystem
+	$lvmok{ }
+	method{ format }
+	format{ }
+	use_filesystem{ }
+	$default_filesystem{ }
+	mountpoint{ /tmp }
+	options/noexec{ noexec }
+        options/nosuid{ nosuid }
+        options/nodev{ nodev }
+        options/rw{ rw } .
+
+4000 10000 -1 $default_filesystem
+	$lvmok{ }
+	method{ format }
+	format{ }
+	use_filesystem{ }
+	$default_filesystem{ }
+	mountpoint{ /home } .
+
