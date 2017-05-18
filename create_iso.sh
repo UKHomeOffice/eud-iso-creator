@@ -53,7 +53,6 @@ prepare_image_for_use() {
   rsync -a config/post_install.sh            ${WORK}/rootfs/root/install/
   rsync -a config/README.md                  ${WORK}/rootfs/root/install/
   rsync -a config/image_config/              ${WORK}/rootfs/root/install/image_config/
-  rsync -a config/image_config/files/80multi ${WORK}/rootfs/lib/partman/recipes/30atomic
 }
 
 tag_image() {
@@ -70,6 +69,7 @@ tag_image() {
 
 configure_image() {
   chroot ${WORK}/rootfs /root/install/chroot.sh
+  rsync -a config/image_config/files/80multi ${WORK}/rootfs/lib/partman/recipes/30atomic
   export kversion=`cd ${WORK}/rootfs/boot && ls -1 vmlinuz-* | tail -1 | sed 's@vmlinuz-@@'`
   cp -vp ${WORK}/rootfs/boot/vmlinuz-${kversion} ${CD}/${FS_DIR}/vmlinuz
   cp -vp ${WORK}/rootfs/boot/initrd.img-${kversion} ${CD}/${FS_DIR}/initrd.img
