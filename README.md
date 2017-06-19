@@ -22,8 +22,14 @@ After the live disk has loaded, open a terminal and change to root:
 `sudo su -`
 Then run the ubuntu installer:
 `ubiquity`
+During the installation wizard make sure you tick 'Encrypt the new Ubuntu installation for security' option on the Installation type window.
+On the Who are you? window, use this configuration:
+Name: DSAB Admin
+Computer's name (replace X's with asset tag number): dadmin-workstation.dsab-eud-000XXX.homeoffice.gov.uk
+Username: dadmin
+Password: <if you do not know this check with DevOps BAU>
 
-## If an SSD is present
+## If an SSD is present - not applicable to the ASUS laptops
 If an SSD is present in the computer then you must install grub manually as this step of the installation will fail.
 
 To do so, open another terminal as the root user - 
@@ -32,8 +38,11 @@ Run the following command to refresh the list of logical volumes:
 `vgchange -a y`
 You should get a message about logical volumes being added.
 
-Next, you must mount the filesystem - to do so, run the following (still as root):
-`mount /dev/<Volume group name>/<logical volume name of root filesystem>` /mnt/
+Next, you must mount the filesystem - to do so, run the following (still as root) make sure to mount the root directory first:
+`mount /dev/vg-workstation/root /mnt/`
+`mount /dev/vg-workstation/var /mnt/var`
+`mount /dev/vg-workstation/tmp /mnt/tmp`
+`mount /dev/vg-workstation/var_tmp /mnt/var_tmp`
 Next you must mount the filesystem containing the boot directory into the correct place of the mounted root filesystem.
 `mount /dev/nvme0n1p1 /mnt/boot`
 
