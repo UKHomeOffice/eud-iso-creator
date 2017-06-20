@@ -6,9 +6,11 @@ https://github.com/UKHomeOffice/development_environment
 
 The idea is that a script is run to generate an ISO so that everything is centralized instead of using the ansible playbooks with their many dependencies.
 
+
 ## Things to be aware of
 
 After installation, run the post_install.sh script in the /root/install directory of the installed file system.
+
 
 ## Instructions on how to use
 
@@ -22,12 +24,19 @@ After the live disk has loaded, open a terminal and change to root:
 `sudo su -`
 Then run the ubuntu installer:
 `ubiquity`
+
 During the installation wizard make sure you tick 'Encrypt the new Ubuntu installation for security' option on the Installation type window.
+
 On the Who are you? window, use this configuration:
+
 Name: DSAB Admin
+
 Computer's name (replace X's with asset tag number): dadmin-workstation.dsab-eud-000XXX.homeoffice.gov.uk
+
 Username: dadmin
+
 Password: <if you do not know this check with DevOps BAU>
+
 
 ## If an SSD is present - not applicable to the ASUS laptops
 If an SSD is present in the computer then you must install grub manually as this step of the installation will fail.
