@@ -35,7 +35,7 @@ Computer's name (replace X's with asset tag number): dadmin-workstation.dsab-eud
 
 Username: dadmin
 
-Password: <if you do not know this check with DevOps BAU>
+Password: (if you do not know this check with DevOps BAU)
 
 
 ## If an SSD is present - not applicable to the ASUS laptops
