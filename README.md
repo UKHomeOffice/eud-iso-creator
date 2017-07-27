@@ -83,6 +83,6 @@ If you can not log in as root from the GUI, you will have to log in using a tty 
 
 Post-Install:
 1. For a user to run docker without sudo, the user has to be added to the "docker" group by the admin:
-'usermod -aG docker <user>'
+`usermod -aG docker <user>`
 
 end
