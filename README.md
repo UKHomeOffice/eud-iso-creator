@@ -81,8 +81,4 @@ After installation you must log in as root and while connected to the internet, 
 
 If you can not log in as root from the GUI, you will have to log in using a tty - if this is the case, you will find it straightforward to connect to the network using nmtui - alternatively, log into the guest account and configure the Wifi from there.
 
-Post-Install:
-1. For a user to run docker without sudo, the user has to be added to the "docker" group by the admin:
-`usermod -aG docker <user>`
-
 end
