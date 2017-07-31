@@ -6,6 +6,10 @@ https://github.com/UKHomeOffice/development_environment
 
 The idea is that a script is run to generate an ISO so that everything is centralized instead of using the ansible playbooks with their many dependencies.
 
+To generate an image run:
+`./generate_iso.sh`
+you will find the generated image in the iso_image directory.
+
 ## Things to be aware of
 
 After installation, run the post_install.sh script in the /root/install directory of the installed file system.
