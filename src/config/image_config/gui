@@ -1,130 +1,27 @@
 #!/bin/bash
-# A script which replicates the ansible role: 
+# Role to configure users GUI
 
-generic_role() {
-  apt-get update -y
+gui_role() {
+  apt-mark hold snapd
 
-  apt-get install -y $OS_PACKAGES
-  apt-get purge -y $OS_BANNED_PACKAGES
-
-  sed -i 's/us/uk/g' work/rootfs/etc/default/keyboard
-
-  rsync --chmod 0444 $FILE_LOCATION/70-u2f.rules /etc/udev/rules.d/70-u2f.rules
-  rsync --chmod 0444 $FILE_LOCATION/50unattended-upgrades /etc/apt/apt.conf.d/50unattended-upgrades
-  rsync --chmod 0644 $FILE_LOCATION/grub /etc/bash_completion.d/grub
-  rsync --chmod 0755 $FILE_LOCATION/rkhunter.sh /etc/cron.daily/rkhunter.sh
-  rsync --chmod 0644 $FILE_LOCATION/rkhunter.conf /etc/rkhunter.conf
-  # Any files attached by a USB will be owned by root
-  rsync --chmod 0755 $FILE_LOCATION/chown_usb /usr/local/bin/chown_usb
-
-  systemctl enable pcscd
-
-  # Lazy way of making people use gpg
-  mv /usr/bin/gpg /usr/bin/.gpg_old
-  ln -s /usr/bin/gpg2 /usr/bin/gpg
+  apt-get install -y $GUI_PACKAGES
+  apt-get purge -y $GUI_BANNED_PACKAGES
 }
 
-OS_PACKAGES="""
-  curl
-  acpid
-  bash-completion
-  bzip2
-  coreutils
-  dmidecode
-  dos2unix
-  dstat
-  e2fsprogs
-  elinks
-  groff
-  htop
-  jq
-  inotify-tools
-  irqbalance
-  logrotate
-  ltrace
-  lvm2
-  lynx
-  ncdu
-  ngrep
-  nmap
-  ntp
-  ntpdate
-  man
-  mlocate
-  mr
-  mtr
-  multitail
-  openssh-server
-  openvpn
-  parted
-  pciutils
-  perl
-  policycoreutils
-  pv
-  python-pip
-  rcs
-  rkhunter
-  rng-tools
-  rsync
-  screen
-  sshuttle
-  sudo
-  sssd
-  sssd-tools
-  sssd-common
-  sysstat
-  strace
-  tar
-  tcl
-  terminator
-  tk
-  tree
-  unzip
-  wget
-  vim-common
-  zip
-  apparmor-profiles
-  apparmor-utils
-  apt-transport-https
-  bind9utils
-  dnsutils
-  git-crypt
-  gnupg-pkcs11-scd
-  iwatch
-  iptables-persistent
-  kernel-package
-  libccid
-  libu2f-host0
-  libpam-yubico
-  libreadline-dev
-  libykclient3
-  libykpers-1-1
-  netcat
-  opensc
-  opensc-pkcs11
-  openssh-client
-  pinentry-curses
-  pcscd
-  pcsc-tools
-  python3
-  python3-pip
-  python3-httplib2
-  scdaemon
-  shellcheck
-  strace
-  systemd-container
-  tig
-  ubuntu-restricted-extras
-  virtualenv
-  whois
-  yubikey-luks
-  yubikey-ksm
-  yubico-piv-tool
-  vim-scripts
-  zlib1g-dev
+GUI_PACKAGES="""
+  awesome
+  awesome-extra
+  pinentry-gtk2
+  metacity-themes
+  ubuntu-gnome-desktop
+  dkms
+  network-manager-openvpn-gnome
+  ykneomgr
+  yubioath-desktop
+  yubikey-personalization-gui
 """
 
-OS_BANNED_PACKAGES="""
+GUI_BANNED_PACKAGES="""
   gnome-mines
   aisleriot
   account-plugin-facebook

@@ -47,12 +47,12 @@ unmount_filesystem() {
 
 prepare_image_for_use() {
   mkdir -p ${WORK}/rootfs/install/
-  rsync -a config/sources/*                  ${WORK}/rootfs/etc/apt/sources.list.d/
-  mkdir -p                                   ${WORK}/rootfs/root/install/image_config/
-  rsync -a config/chroot.sh                  ${WORK}/rootfs/root/install/
-  rsync -a config/post_install.sh            ${WORK}/rootfs/root/install/
-  rsync -a config/README.md                  ${WORK}/rootfs/root/install/
-  rsync -a config/image_config/              ${WORK}/rootfs/root/install/image_config/
+  rsync -a iso_creator/config/sources/*       ${WORK}/rootfs/etc/apt/sources.list.d/
+  mkdir -p                                    ${WORK}/rootfs/root/install/image_config/
+  rsync -a iso_creator/config/chroot.sh       ${WORK}/rootfs/root/install/
+  rsync -a iso_creator/config/post_install.sh ${WORK}/rootfs/root/install/
+  rsync -a iso_creator/config/README.md       ${WORK}/rootfs/root/install/
+  rsync -a iso_creator/config/image_config/   ${WORK}/rootfs/root/install/image_config/
 }
 
 tag_image() {
@@ -69,7 +69,7 @@ tag_image() {
 
 configure_image() {
   chroot ${WORK}/rootfs /root/install/chroot.sh
-  rsync -a config/image_config/files/80multi ${WORK}/rootfs/lib/partman/recipes/30atomic
+  rsync -a iso_creator/config/image_config/files/80multi ${WORK}/rootfs/lib/partman/recipes/30atomic
   export kversion=`cd ${WORK}/rootfs/boot && ls -1 vmlinuz-* | tail -1 | sed 's@vmlinuz-@@'`
   cp -vp ${WORK}/rootfs/boot/vmlinuz-${kversion} ${CD}/${FS_DIR}/vmlinuz
   cp -vp ${WORK}/rootfs/boot/initrd.img-${kversion} ${CD}/${FS_DIR}/initrd.img
@@ -90,8 +90,8 @@ prepare_cd_directory() {
 	                                  | sudo tee ${CD}/${FS_DIR}/filesystem.size
   find ${CD} -type f -print0 | xargs -0 md5sum | sed "s@${CD}@.@" | \
 	                           grep -v md5sum.txt | sudo tee -a ${CD}/md5sum.txt
-  rsync -a config/image_config/files/grub.cfg ${CD}/boot/grub/grub.cfg
-  grub-mkrescue -o ~/eud-environment-$(date +%Y-%m-%d-%H-%M-%S).iso ${CD} -- -iso-level 4
+  rsync -a iso_creator/config/image_config/files/grub.cfg ${CD}/boot/grub/grub.cfg
+  grub-mkrescue -o ~/iso_image/eud-environment-$(date +%Y-%m-%d-%H-%M-%S).iso ${CD} -- -iso-level 4
 }
 
 separator() {

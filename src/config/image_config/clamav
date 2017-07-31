@@ -1,7 +1,6 @@
 #!/bin/bash
 
 clamav_role() {
-  apt-get update
   apt-get install -y clamav clamav-daemon clamav-freshclam clamtk
 
   rsync --chmod 0440 $FILE_LOCATION/usr.sbin.clamd /etc/apparmor.d/local/usr.sbin.clamd
